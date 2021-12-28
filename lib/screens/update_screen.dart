@@ -39,8 +39,8 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
         appBar: AppBar(
           title: const Text('Update Task'),
           backgroundColor: todoModel.giveEnumGetColor(_dropdownValue),
-          centerTitle: true,
           elevation: 0,
+          centerTitle: true,
         ),
         body: Form(
           child: Padding(
@@ -57,12 +57,17 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 8.0),
                       TextFormField(
+                        autofocus: true,
                         decoration: const InputDecoration(
-                            hintText: 'Enter task here',
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)))),
+                          hintText: 'Enter task here',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                          ),
+                        ),
                         controller: _task,
+                        textInputAction: TextInputAction.next,
                       ),
                       const SizedBox(height: 30.0),
                       const Text(
@@ -71,6 +76,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                       ),
                       const SizedBox(height: 8.0),
                       TextFormField(
+                        autofocus: true,
                         decoration: const InputDecoration(
                             hintText: 'Enter description here',
                             border: OutlineInputBorder(
@@ -78,19 +84,20 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                                     BorderRadius.all(Radius.circular(12)))),
                         controller: _desc,
                         maxLines: 4,
+                        textInputAction: TextInputAction.done,
                       ),
                       const SizedBox(height: 24.0),
-                      DropdownButton<Enum>(
-                        value: _dropdownValue,
-                        items: categoryEnum.values
-                            .map<DropdownMenuItem<Enum>>((Enum value) =>
-                                DropdownMenuItem<Enum>(
-                                    child: Text(value.name), value: value))
-                            .toList(),
-                        onChanged: (Enum? newValue) =>
-                            setState(() => _dropdownValue = newValue!),
-                      )
                     ],
+                  ),
+                  DropdownButton<Enum>(
+                    value: _dropdownValue,
+                    items: categoryEnum.values
+                        .map<DropdownMenuItem<Enum>>((Enum value) =>
+                            DropdownMenuItem<Enum>(
+                                child: Text(value.name), value: value))
+                        .toList(),
+                    onChanged: (Enum? newValue) =>
+                        setState(() => _dropdownValue = newValue!),
                   ),
                   SizedBox(
                     width: double.infinity,

@@ -2,7 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/screens/add_screen.dart';
 import 'package:task_master/widgets/category.dart';
-import 'package:task_master/widgets/custom_page_route.dart';
+import 'package:task_master/widgets/page_route.dart';
 import 'package:task_master/widgets/header.dart';
 import 'package:task_master/widgets/history.dart';
 
@@ -22,7 +22,9 @@ class _ToDoScreenState extends State<ToDoScreen> {
           Navigator.push(
             context,
             CustomPageRoute(
-                child: const AddTaskScreen(), direction: AxisDirection.up),
+              child: const AddTaskScreen(),
+              direction: AxisDirection.up,
+            ),
           );
         },
         label: const Text("Add task", style: TextStyle(fontSize: 20)),

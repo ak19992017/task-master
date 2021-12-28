@@ -12,8 +12,8 @@ class AddTaskScreen extends StatefulWidget {
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final TextEditingController _task = TextEditingController();
   final TextEditingController _description = TextEditingController();
-  final _addItemFormKey = GlobalKey<FormState>();
-  Enum dropdownValue = categoryEnum.home;
+
+  Enum _dropdownValue = categoryEnum.home;
   @override
   Widget build(BuildContext context) {
     var todoModel = context.watch<ToDoModel>();
@@ -21,12 +21,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Add Task'),
-          backgroundColor: todoModel.giveEnumGetColor(dropdownValue),
+          backgroundColor: todoModel.giveEnumGetColor(_dropdownValue),
           elevation: 0,
           centerTitle: true,
         ),
         body: Form(
-          key: _addItemFormKey,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: SingleChildScrollView(
@@ -74,14 +73,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     ],
                   ),
                   DropdownButton<Enum>(
-                    value: dropdownValue,
+                    value: _dropdownValue,
                     items: categoryEnum.values
                         .map<DropdownMenuItem<Enum>>((Enum value) =>
                             DropdownMenuItem<Enum>(
                                 child: Text(value.name), value: value))
                         .toList(),
                     onChanged: (Enum? newValue) =>
-                        setState(() => dropdownValue = newValue!),
+                        setState(() => _dropdownValue = newValue!),
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -92,14 +91,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       ),
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              todoModel.giveEnumGetColor(dropdownValue)),
+                              todoModel.giveEnumGetColor(_dropdownValue)),
                           padding: MaterialStateProperty.all(
                               const EdgeInsets.symmetric(vertical: 8))),
                       onPressed: () {
                         context.read<ToDoModel>().addToDo(
                               _task.text,
                               _description.text,
-                              dropdownValue,
+                              _dropdownValue,
                             );
                         Navigator.of(context).pop();
                       },

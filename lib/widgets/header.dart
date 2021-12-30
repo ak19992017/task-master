@@ -38,7 +38,6 @@ class _HeaderSectionState extends State<HeaderSection> {
                         autofocus: true,
                         initialValue: userName,
                         textInputAction: TextInputAction.done,
-                        textCapitalization: TextCapitalization.sentences,
                         keyboardType: TextInputType.name,
                         onFieldSubmitted: (value) => setState(
                           () => {isEditable = false, userName = value},

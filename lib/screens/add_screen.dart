@@ -53,6 +53,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         ),
                         controller: _task,
                         textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.name,
+                        textCapitalization: TextCapitalization.sentences,
                       ),
                       const SizedBox(height: 30.0),
                       const Text(
@@ -68,8 +70,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12)))),
                         controller: _description,
-                        maxLines: 4,
-                        textInputAction: TextInputAction.done,
+                        maxLines: 6,
+                        textInputAction: TextInputAction.go,
+                        keyboardType: TextInputType.multiline,
+                        textCapitalization: TextCapitalization.sentences,
                       ),
                       const SizedBox(height: 24.0),
                     ],

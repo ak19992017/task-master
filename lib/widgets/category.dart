@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:task_master/constants.dart';
-import 'package:task_master/models/todo_model.dart';
 import 'package:task_master/screens/read_screen.dart';
 import 'package:task_master/widgets/page_route.dart';
 
@@ -24,7 +23,7 @@ class CategorySection extends StatelessWidget {
                   context,
                   CustomPageRoute(
                     child: ReadTaskScreen(
-                      color: colorsList[index],
+                      color: giveCategoryGetColor(categoryList[index]),
                       text: categoryList[index],
                     ),
                     direction: AxisDirection.left,
@@ -34,11 +33,12 @@ class CategorySection extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   margin: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: colorsList[index],
+                    color: giveCategoryGetColor(categoryList[index]),
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                     boxShadow: [
                       BoxShadow(
-                        color: colorsList[index].withOpacity(0.5),
+                        color: giveCategoryGetColor(categoryList[index])
+                            .withOpacity(0.5),
                         offset: const Offset(10, 10),
                         blurRadius: 2,
                       )

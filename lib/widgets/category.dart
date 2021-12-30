@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_master/constants.dart';
 import 'package:task_master/models/todo_model.dart';
 import 'package:task_master/screens/read_screen.dart';
 import 'package:task_master/widgets/page_route.dart';
@@ -45,7 +46,7 @@ class CategorySection extends StatelessWidget {
                   ),
                   child: Center(
                       child: Text(
-                    categoryList[index],
+                    categoryList[index].toUpperCase(),
                     style: const TextStyle(
                       fontSize: 35,
                       color: Colors.white,

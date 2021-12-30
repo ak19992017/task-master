@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_print
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/models/todo_model.dart';
-import 'package:provider/provider.dart';
+import 'package:task_master/constants.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({Key? key}) : super(key: key);
@@ -13,15 +14,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   final TextEditingController _task = TextEditingController();
   final TextEditingController _description = TextEditingController();
 
-  Enum _dropdownValue = categoryEnum.home;
+  String _dropdownValue = 'home';
+  bool _completed = false;
   @override
   Widget build(BuildContext context) {
-    var todoModel = context.watch<ToDoModel>();
+    CollectionReference todos = FirebaseFirestore.instance.collection('todos');
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Add Task'),
-          backgroundColor: todoModel.giveEnumGetColor(_dropdownValue),
+          backgroundColor: giveCategoryGetColor(_dropdownValue),
           elevation: 0,
           centerTitle: true,
         ),
@@ -72,15 +74,19 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       const SizedBox(height: 24.0),
                     ],
                   ),
-                  DropdownButton<Enum>(
+                  DropdownButton<String>(
                     value: _dropdownValue,
-                    items: categoryEnum.values
-                        .map<DropdownMenuItem<Enum>>((Enum value) =>
-                            DropdownMenuItem<Enum>(
-                                child: Text(value.name), value: value))
-                        .toList(),
-                    onChanged: (Enum? newValue) =>
+                    items: categoryList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                          child: Text(value), value: value);
+                    }).toList(),
+                    onChanged: (String? newValue) =>
                         setState(() => _dropdownValue = newValue!),
+                  ),
+                  Switch(
+                    value: _completed,
+                    onChanged: (value) => setState(() => _completed = value),
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -91,16 +97,25 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       ),
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              todoModel.giveEnumGetColor(_dropdownValue)),
+                              giveCategoryGetColor(_dropdownValue)),
                           padding: MaterialStateProperty.all(
                               const EdgeInsets.symmetric(vertical: 8))),
                       onPressed: () {
-                        context.read<ToDoModel>().addToDo(
-                              _task.text,
-                              _description.text,
-                              _dropdownValue,
-                            );
-                        Navigator.of(context).pop();
+                        todos
+                            .add({
+                              'task': _task.text,
+                              'description': _description.text,
+                              'completed': _completed,
+                              'category': _dropdownValue,
+                              'color': giveCategoryGetColor(_dropdownValue)
+                                  .value
+                                  .toString(),
+                            })
+                            .then((value) => print(
+                                "$value\n 🎯${_task.text}🎯 added to Firebase"))
+                            .catchError(
+                                (error) => print("Failed to add user: $error"));
+                        Navigator.pop(context);
                       },
                     ),
                   )

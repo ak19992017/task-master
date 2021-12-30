@@ -1,19 +1,24 @@
+// ignore_for_file: avoid_print
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/models/todo_model.dart';
-import 'package:provider/provider.dart';
+import 'package:task_master/constants.dart';
 
 class UpdateTaskScreen extends StatefulWidget {
-  const UpdateTaskScreen(
-      {Key? key,
-      required this.task,
-      required this.desc,
-      required this.e,
-      required this.index})
-      : super(key: key);
+  const UpdateTaskScreen({
+    Key? key,
+    required this.task,
+    required this.desc,
+    required this.category,
+    required this.completed,
+    required this.id,
+  }) : super(key: key);
+  final String id;
   final String task;
   final String desc;
-  final Enum e;
-  final int index;
+  final String category;
+  final bool completed;
+
   @override
   State<UpdateTaskScreen> createState() => _UpdateTaskScreenState();
 }
@@ -21,24 +26,27 @@ class UpdateTaskScreen extends StatefulWidget {
 class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
   late TextEditingController _task;
   late TextEditingController _desc;
-  late Enum _dropdownValue;
+  late String _dropdownValue;
+  late bool _completed;
 
   @override
   void initState() {
     super.initState();
     _task = TextEditingController(text: widget.task);
     _desc = TextEditingController(text: widget.desc);
-    _dropdownValue = widget.e;
+    _dropdownValue = widget.category;
+    _completed = widget.completed;
   }
 
   @override
   Widget build(BuildContext context) {
-    var todoModel = context.watch<ToDoModel>();
+    CollectionReference todos = FirebaseFirestore.instance.collection('todos');
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Update Task'),
-          backgroundColor: todoModel.giveEnumGetColor(_dropdownValue),
+          backgroundColor: giveCategoryGetColor(_dropdownValue),
           elevation: 0,
           centerTitle: true,
         ),
@@ -89,16 +97,19 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                       const SizedBox(height: 24.0),
                     ],
                   ),
-                  DropdownButton<Enum>(
+                  DropdownButton<String>(
                     value: _dropdownValue,
-                    items: categoryEnum.values
-                        .map<DropdownMenuItem<Enum>>((Enum value) =>
-                            DropdownMenuItem<Enum>(
-                                child: Text(value.name), value: value))
+                    items: categoryList
+                        .map<DropdownMenuItem<String>>((String value) =>
+                            DropdownMenuItem<String>(
+                                child: Text(value), value: value))
                         .toList(),
-                    onChanged: (Enum? newValue) =>
+                    onChanged: (String? newValue) =>
                         setState(() => _dropdownValue = newValue!),
                   ),
+                  Switch(
+                      value: _completed,
+                      onChanged: (value) => setState(() => _completed = value)),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -108,16 +119,24 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                       ),
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              todoModel.giveEnumGetColor(_dropdownValue)),
+                              giveCategoryGetColor(_dropdownValue)),
                           padding: MaterialStateProperty.all(
                               const EdgeInsets.symmetric(vertical: 5))),
                       onPressed: () {
-                        context.read<ToDoModel>().updateToDo(
-                              _task.text,
-                              _desc.text,
-                              _dropdownValue,
-                              widget.index,
-                            );
+                        todos
+                            .doc(widget.id)
+                            .update({
+                              'task': _task.text,
+                              'description': _desc.text,
+                              'completed': _completed,
+                              'category': _dropdownValue,
+                              'color': giveCategoryGetColor(_dropdownValue)
+                                  .value
+                                  .toString(),
+                            })
+                            .then((value) => print("🔴User Updated"))
+                            .catchError((error) =>
+                                print("Failed to update user: $error"));
                         Navigator.of(context).pop();
                       },
                     ),

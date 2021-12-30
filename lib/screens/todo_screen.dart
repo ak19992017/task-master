@@ -6,14 +6,9 @@ import 'package:task_master/widgets/page_route.dart';
 import 'package:task_master/widgets/header.dart';
 import 'package:task_master/widgets/history.dart';
 
-class ToDoScreen extends StatefulWidget {
+class ToDoScreen extends StatelessWidget {
   const ToDoScreen({Key? key}) : super(key: key);
 
-  @override
-  State<ToDoScreen> createState() => _ToDoScreenState();
-}
-
-class _ToDoScreenState extends State<ToDoScreen> {
   @override
   Widget build(context) {
     return Scaffold(

@@ -84,5 +84,3 @@ List<Color> colorsList = [
   Colors.blueAccent,
   Colors.amberAccent.shade700,
 ];
-
-List<String> categoryList = ["Home", "Work", "Code", "Play"];

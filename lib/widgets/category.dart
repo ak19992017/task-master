@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/constants.dart';
 import 'package:task_master/screens/read_screen.dart';
@@ -76,6 +77,8 @@ class _CategorySectionState extends State<CategorySection> {
                               ConnectionState.done) {
                             print("snaphot dat lenght =>" +
                                 snapshot.data!.length.toString());
+                            // return CachedNetworkImage(
+                            // imageUrl: snapshot.data!.elementAt(index));
                             return Image.network(
                                 snapshot.data!.elementAt(index));
                           }

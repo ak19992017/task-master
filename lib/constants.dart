@@ -13,6 +13,12 @@ Color giveCategoryGetColor(String e) {
 
 List<String> categoryList = ["home", "work", "code", "play"];
 
+List<String> imageList = [
+  'pencil.png',
+  'travel.png',
+  'takeaway-cup.png',
+  'rocket.png'
+];
 // class ToDo {
 //   String task;
 //   String description;

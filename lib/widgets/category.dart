@@ -1,11 +1,8 @@
 // ignore_for_file: avoid_print
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/constants.dart';
 import 'package:task_master/screens/read_screen.dart';
 import 'package:task_master/widgets/page_route.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class CategorySection extends StatefulWidget {
   const CategorySection({Key? key}) : super(key: key);
@@ -15,22 +12,8 @@ class CategorySection extends StatefulWidget {
 }
 
 class _CategorySectionState extends State<CategorySection> {
-  FirebaseStorage storage = FirebaseStorage.instance;
-
-  Future<List<String>> getIconListString() async {
-    ListResult result = await storage.ref('icons').listAll();
-    List<Reference> r = result.items;
-    List<String> list = [];
-    for (int i = 0; i < r.length; i++) {
-      String s = await storage.ref(r[i].fullPath).getDownloadURL();
-      list.add(s);
-    }
-    return list;
-  }
-
   @override
   Widget build(BuildContext context) {
-    getIconListString();
     return Column(
       children: [
         SizedBox(
@@ -70,29 +53,7 @@ class _CategorySectionState extends State<CategorySection> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      FutureBuilder<List<String>>(
-                        future: getIconListString(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            print("snaphot dat lenght =>" +
-                                snapshot.data!.length.toString());
-                            // return CachedNetworkImage(
-                            // imageUrl: snapshot.data!.elementAt(index));
-                            return Image.network(
-                                snapshot.data!.elementAt(index));
-                          }
-                          if (snapshot.hasError) {
-                            print('🔴🔴🔴🔴 ERROR 🔴🔴🔴🔴');
-                          }
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                          return Text(snapshot.data.toString());
-                        },
-                      ),
+                      Image.asset('assets/' + imageList[index]),
                       Center(
                         child: Text(
                           categoryList[index].toUpperCase(),

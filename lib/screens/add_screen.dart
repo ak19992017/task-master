@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/constants.dart';
 
@@ -18,7 +19,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   bool _completed = false;
   @override
   Widget build(BuildContext context) {
-    CollectionReference todos = FirebaseFirestore.instance.collection('todos');
+    String uniqueId = FirebaseAuth.instance.currentUser!.uid;
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -42,7 +45,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 8.0),
                       TextFormField(
-                        autofocus: true,
                         decoration: const InputDecoration(
                           hintText: 'Enter task here',
                           border: OutlineInputBorder(
@@ -63,7 +65,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       ),
                       const SizedBox(height: 8.0),
                       TextFormField(
-                        autofocus: true,
                         decoration: const InputDecoration(
                             hintText: 'Enter description here',
                             border: OutlineInputBorder(
@@ -71,7 +72,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                     BorderRadius.all(Radius.circular(12)))),
                         controller: _description,
                         maxLines: 6,
-                        textInputAction: TextInputAction.go,
+                        textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
                         textCapitalization: TextCapitalization.sentences,
                       ),
@@ -105,7 +106,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           padding: MaterialStateProperty.all(
                               const EdgeInsets.symmetric(vertical: 8))),
                       onPressed: () {
-                        todos
+                        users
+                            .doc(uniqueId)
+                            .collection('tasks')
                             .add({
                               'task': _task.text,
                               'description': _description.text,
@@ -114,11 +117,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               'color': giveCategoryGetColor(_dropdownValue)
                                   .value
                                   .toString(),
+                              'createdOn': FieldValue.serverTimestamp(),
                             })
                             .then((value) => print(
                                 "$value\n 🎯${_task.text}🎯 added to Firebase"))
                             .catchError(
                                 (error) => print("Failed to add user: $error"));
+
                         Navigator.pop(context);
                       },
                     ),

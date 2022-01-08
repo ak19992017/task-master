@@ -7,8 +7,10 @@ Color giveCategoryGetColor(String e) {
     return Colors.greenAccent.shade700;
   } else if (e == 'code') {
     return Colors.blueAccent;
+  } else if (e == 'play') {
+    return Colors.amberAccent.shade700;
   }
-  return Colors.amberAccent.shade700;
+  return Colors.black;
 }
 
 List<String> categoryList = ["home", "work", "code", "play"];
@@ -19,22 +21,3 @@ List<String> imageList = [
   'takeaway-cup.png',
   'rocket.png'
 ];
-// class ToDo {
-//   String task;
-//   String description;
-//   Enum categoryEnum;
-//   bool completed;
-//   Color color;
-//   ToDo(this.task, this.completed, this.color, this.categoryEnum,
-//       [this.description = ""]);
-// }
-
-
-// "Become an inspiration to others"
-// "Master a difficult skill"
-// "Gain a more positive mindset"
-// "Learn about how to become a millionaire."
-// "Go on a trip around the world."
-// "Invest in the stock market"
-// "Regularly call your parents"
-// "Build your dream house"

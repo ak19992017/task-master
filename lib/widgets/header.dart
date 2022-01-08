@@ -19,8 +19,14 @@ class _HeaderSectionState extends State<HeaderSection> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
-          const Text("Hello,",
-              style: TextStyle(fontSize: 25, color: Colors.black87)),
+          const Text(
+            "Hello,",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w500,
+              color: Colors.black87,
+            ),
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

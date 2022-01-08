@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_master/constants.dart';
 import 'package:task_master/screens/read_screen.dart';
-import 'package:task_master/widgets/page_route.dart';
 
 class CategorySection extends StatefulWidget {
   const CategorySection({Key? key}) : super(key: key);
@@ -27,17 +26,16 @@ class _CategorySectionState extends State<CategorySection> {
               return GestureDetector(
                 onTap: () => Navigator.push(
                   context,
-                  CustomPageRoute(
-                    child: ReadTaskScreen(
+                  MaterialPageRoute(
+                    builder: (context) => ReadTaskScreen(
                       color: giveCategoryGetColor(categoryList[index]),
                       text: categoryList[index],
                     ),
-                    direction: AxisDirection.left,
                   ),
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(8),
-                  margin: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: giveCategoryGetColor(categoryList[index]),
                     borderRadius: const BorderRadius.all(Radius.circular(20)),

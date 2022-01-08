@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SpecialButton extends StatefulWidget {
-  const SpecialButton(
+class SuperButton extends StatefulWidget {
+  const SuperButton(
       {Key? key,
       required this.label,
       required this.icon,
@@ -13,10 +13,10 @@ class SpecialButton extends StatefulWidget {
   final Function()? onPress;
   final Color color;
   @override
-  State<SpecialButton> createState() => _SpecialButtonState();
+  State<SuperButton> createState() => _SuperButtonState();
 }
 
-class _SpecialButtonState extends State<SpecialButton> {
+class _SuperButtonState extends State<SuperButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(

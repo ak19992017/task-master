@@ -1,5 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/widgets/pop_up_msg.dart';
 
@@ -16,8 +19,9 @@ class ReadTaskScreen extends StatefulWidget {
 class _ReadTaskScreenState extends State<ReadTaskScreen> {
   @override
   Widget build(BuildContext context) {
-    CollectionReference todos = FirebaseFirestore.instance.collection('todos');
-    var temp = todos.where('category', isEqualTo: widget.text);
+    String uniqueId = FirebaseAuth.instance.currentUser!.uid;
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -28,7 +32,12 @@ class _ReadTaskScreenState extends State<ReadTaskScreen> {
         ),
         body: SingleChildScrollView(
           child: StreamBuilder<QuerySnapshot>(
-            stream: temp.snapshots(),
+            stream: users
+                .doc(uniqueId)
+                .collection('tasks')
+                .where('category', isEqualTo: widget.text)
+                .orderBy('createdOn', descending: true)
+                .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {
@@ -63,8 +72,7 @@ class _ReadTaskScreenState extends State<ReadTaskScreen> {
                             clipBehavior: Clip.hardEdge,
                             isScrollControlled: true,
                             context: context,
-                            builder: (context) =>
-                                PopUpMessage(document: document),
+                            builder: (context) => PopUp(document: document),
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
@@ -72,6 +80,16 @@ class _ReadTaskScreenState extends State<ReadTaskScreen> {
                               ),
                             ),
                           );
+                        },
+                        onLongPress: () {
+                          users
+                              .doc(uniqueId)
+                              .collection('tasks')
+                              .doc(document.id)
+                              .update({'completed': !document['completed']})
+                              .then((value) => print("🍄Toggle task state"))
+                              .catchError((error) =>
+                                  print("Failed to update user: $error"));
                         },
                       ),
                     );

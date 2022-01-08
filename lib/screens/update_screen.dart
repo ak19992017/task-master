@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/constants.dart';
 
@@ -40,7 +41,8 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference todos = FirebaseFirestore.instance.collection('todos');
+    String uniqueId = FirebaseAuth.instance.currentUser!.uid;
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
 
     return SafeArea(
       child: Scaffold(
@@ -65,7 +67,6 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 8.0),
                       TextFormField(
-                        autofocus: true,
                         decoration: const InputDecoration(
                           hintText: 'Enter task here',
                           border: OutlineInputBorder(
@@ -86,7 +87,6 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                       ),
                       const SizedBox(height: 8.0),
                       TextFormField(
-                        autofocus: true,
                         decoration: const InputDecoration(
                             hintText: 'Enter description here',
                             border: OutlineInputBorder(
@@ -94,7 +94,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                                     BorderRadius.all(Radius.circular(12)))),
                         controller: _desc,
                         maxLines: 6,
-                        textInputAction: TextInputAction.go,
+                        textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
                         textCapitalization: TextCapitalization.sentences,
                       ),
@@ -127,7 +127,9 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                           padding: MaterialStateProperty.all(
                               const EdgeInsets.symmetric(vertical: 5))),
                       onPressed: () {
-                        todos
+                        users
+                            .doc(uniqueId)
+                            .collection('tasks')
                             .doc(widget.id)
                             .update({
                               'task': _task.text,

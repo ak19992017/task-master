@@ -1,10 +1,10 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_local_variable
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_master/screens/update_screen.dart';
+import 'package:task_master/services/firestore_services.dart';
 import 'package:task_master/widgets/button.dart';
 
 class Message extends StatefulWidget {
@@ -19,8 +19,7 @@ class _MessageState extends State<Message> {
   bool _locked = false;
   @override
   Widget build(BuildContext context) {
-    String uniqueId = FirebaseAuth.instance.currentUser!.uid;
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    FirestoreServices firestoreServices = FirestoreServices();
     return Column(
       children: [
         const Icon(EvaIcons.arrowIosUpwardOutline,
@@ -70,15 +69,7 @@ class _MessageState extends State<Message> {
                 label: 'Delete',
                 icon: EvaIcons.trash2Outline,
                 onPress: () {
-                  users
-                      .doc(uniqueId)
-                      .collection('tasks')
-                      .doc(widget.document.id)
-                      .delete()
-                      .then((value) => print("⚡Task Deleted"))
-                      .catchError(
-                          (error) => print("Failed to delete user: $error"));
-                  Navigator.pop(context);
+                  firestoreServices.deleteTask(widget.document.id);
                 },
                 color:
                     Color(int.parse(widget.document['color'])).withOpacity(1),

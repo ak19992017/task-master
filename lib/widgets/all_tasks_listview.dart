@@ -3,7 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/widgets/pop_up_msg.dart';
+import 'package:task_master/services/firestore_services.dart';
+import 'package:task_master/widgets/message.dart';
 
 class AllTasksListViewSection extends StatefulWidget {
   const AllTasksListViewSection({Key? key, required this.header})
@@ -20,7 +21,7 @@ class _AllTasksListViewSectionState extends State<AllTasksListViewSection> {
   Widget build(BuildContext context) {
     String uniqueId = FirebaseAuth.instance.currentUser!.uid;
     CollectionReference users = FirebaseFirestore.instance.collection('users');
-
+    FirestoreServices firestoreServices = FirestoreServices();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -71,7 +72,20 @@ class _AllTasksListViewSectionState extends State<AllTasksListViewSection> {
                             isScrollControlled: true,
                             context: context,
                             builder: (context) {
-                              return PopUp(document: document);
+                              return DraggableScrollableSheet(
+                                initialChildSize: 0.5,
+                                minChildSize: 0.2,
+                                maxChildSize: 1,
+                                expand: false,
+                                builder: (_, controller) =>
+                                    SingleChildScrollView(
+                                  controller: controller,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Message(document: document),
+                                  ),
+                                ),
+                              );
                             },
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
@@ -83,14 +97,7 @@ class _AllTasksListViewSectionState extends State<AllTasksListViewSection> {
                         }
                       },
                       onLongPress: () {
-                        users
-                            .doc(uniqueId)
-                            .collection('tasks')
-                            .doc(document.id)
-                            .update({'completed': !document['completed']})
-                            .then((value) => print("🍄Toggle task state"))
-                            .catchError((error) =>
-                                print("Failed to update user: $error"));
+                        firestoreServices.toggleCompleted(document);
                       },
                     ),
                   );

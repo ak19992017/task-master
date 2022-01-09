@@ -1,8 +1,9 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_import
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/constants.dart';
+import 'package:task_master/services/firestore_services.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({Key? key}) : super(key: key);
@@ -19,9 +20,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   bool _completed = false;
   @override
   Widget build(BuildContext context) {
-    String uniqueId = FirebaseAuth.instance.currentUser!.uid;
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-
+    FirestoreServices firestoreServices = FirestoreServices();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -106,24 +105,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           padding: MaterialStateProperty.all(
                               const EdgeInsets.symmetric(vertical: 8))),
                       onPressed: () {
-                        users
-                            .doc(uniqueId)
-                            .collection('tasks')
-                            .add({
-                              'task': _task.text,
-                              'description': _description.text,
-                              'completed': _completed,
-                              'category': _dropdownValue,
-                              'color': giveCategoryGetColor(_dropdownValue)
-                                  .value
-                                  .toString(),
-                              'createdOn': FieldValue.serverTimestamp(),
-                            })
-                            .then((value) => print(
-                                "$value\n 🎯${_task.text}🎯 added to Firebase"))
-                            .catchError(
-                                (error) => print("Failed to add user: $error"));
-
+                        firestoreServices.addTask(_task.text, _description.text,
+                            _completed, _dropdownValue);
                         Navigator.pop(context);
                       },
                     ),

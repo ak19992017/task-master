@@ -10,7 +10,6 @@ import 'package:task_master/widgets/layout/mobile_layout.dart';
 import 'package:task_master/widgets/layout/desktop_layout.dart';
 import 'package:task_master/widgets/button.dart';
 import 'package:task_master/widgets/all_tasks_listview.dart';
-import 'package:task_master/widgets/logo.dart';
 import 'package:task_master/widgets/layout/responsive_layout.dart';
 
 class AuthenticationScreen extends StatelessWidget {

@@ -16,12 +16,4 @@ class ToDoModel {
     required this.color,
     required this.category,
   });
-
-  ToDoModel.fromJson(Map<String, dynamic> parsedJson)
-      : task = parsedJson['task'],
-        description = parsedJson['description'],
-        createdOn = parsedJson['createdOn'],
-        completed = parsedJson['completed'],
-        color = parsedJson['colors'],
-        category = parsedJson['category'];
 }

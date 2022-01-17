@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
-import 'package:task_master/constants.dart';
+import 'package:task_master/others/constants.dart';
 import 'package:task_master/screens/read_screen.dart';
 
 class CategorySection extends StatefulWidget {
@@ -27,10 +27,8 @@ class _CategorySectionState extends State<CategorySection> {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ReadTaskScreen(
-                      color: giveCategoryGetColor(categoryList[index]),
-                      text: categoryList[index],
-                    ),
+                    builder: (context) =>
+                        ReadTaskScreen(text: categoryList[index]),
                   ),
                 ),
                 child: Container(
@@ -52,14 +50,12 @@ class _CategorySectionState extends State<CategorySection> {
                     alignment: Alignment.center,
                     children: [
                       Image.asset('assets/' + imageList[index]),
-                      Center(
-                        child: Text(
-                          categoryList[index].toUpperCase(),
-                          style: const TextStyle(
-                            fontSize: 35,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      Text(
+                        categoryList[index].toUpperCase(),
+                        style: const TextStyle(
+                          fontSize: 35,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       )
                     ],

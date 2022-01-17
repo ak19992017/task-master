@@ -2,8 +2,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/constants.dart';
-import 'package:task_master/services/firestore_services.dart';
+import 'package:task_master/others/constants.dart';
+import 'package:task_master/others/firestore_services.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({Key? key}) : super(key: key);

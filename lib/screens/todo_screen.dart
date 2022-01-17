@@ -1,8 +1,10 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:task_master/screens/add_screen.dart';
 import 'package:task_master/widgets/category.dart';
 import 'package:task_master/widgets/drawer.dart';
 import 'package:task_master/widgets/header.dart';
-import 'package:task_master/widgets/all_tasks_listview.dart';
+import 'package:task_master/widgets/history.dart';
 
 class ToDoScreen extends StatefulWidget {
   const ToDoScreen({Key? key}) : super(key: key);
@@ -15,27 +17,31 @@ class _ToDoScreenState extends State<ToDoScreen> {
   @override
   Widget build(context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddTaskScreen(),
+            ),
+          );
+        },
+        label: const Text("Add task", style: TextStyle(fontSize: 20)),
+        icon: const Icon(EvaIcons.plus),
+        backgroundColor: Colors.black,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12.0))),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       drawer: const SuperDrawer(),
       body: SingleChildScrollView(
         child: Column(
-          // ignore: prefer_const_literals_to_create_immutables
-          children: [
-            const SizedBox(height: 20, width: double.infinity),
-            const HeaderSection(),
-            const CategorySection(),
-            const AllTasksListViewSection(
-              header: Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
-                  "History",
-                  style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black87),
-                ),
-              ),
-            ),
-            const SizedBox(height: 300, child: Placeholder()),
+          children: const [
+            SizedBox(height: 20, width: double.infinity),
+            HeaderSection(),
+            CategorySection(),
+            HistorySection(),
+            SizedBox(height: 60),
           ],
         ),
       ),

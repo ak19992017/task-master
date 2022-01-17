@@ -4,7 +4,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_master/screens/update_screen.dart';
-import 'package:task_master/services/firestore_services.dart';
+import 'package:task_master/others/firestore_services.dart';
 import 'package:task_master/widgets/button.dart';
 
 class Message extends StatefulWidget {
@@ -70,6 +70,7 @@ class _MessageState extends State<Message> {
                 icon: EvaIcons.trash2Outline,
                 onPress: () {
                   firestoreServices.deleteTask(widget.document.id);
+                  Navigator.pop(context);
                 },
                 color:
                     Color(int.parse(widget.document['color'])).withOpacity(1),

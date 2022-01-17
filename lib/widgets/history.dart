@@ -3,20 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/services/firestore_services.dart';
+import 'package:task_master/others/firestore_services.dart';
 import 'package:task_master/widgets/message.dart';
 
-class AllTasksListViewSection extends StatefulWidget {
-  const AllTasksListViewSection({Key? key, required this.header})
-      : super(key: key);
-  final Widget header;
+class HistorySection extends StatefulWidget {
+  const HistorySection({Key? key}) : super(key: key);
 
   @override
-  _AllTasksListViewSectionState createState() =>
-      _AllTasksListViewSectionState();
+  _HistorySectionState createState() => _HistorySectionState();
 }
 
-class _AllTasksListViewSectionState extends State<AllTasksListViewSection> {
+class _HistorySectionState extends State<HistorySection> {
   @override
   Widget build(BuildContext context) {
     String uniqueId = FirebaseAuth.instance.currentUser!.uid;
@@ -25,7 +22,16 @@ class _AllTasksListViewSectionState extends State<AllTasksListViewSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        widget.header,
+        const Padding(
+          padding: EdgeInsets.only(left: 15),
+          child: Text(
+            "History",
+            style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87),
+          ),
+        ),
         const SizedBox(height: 15),
         StreamBuilder<QuerySnapshot>(
           stream: users

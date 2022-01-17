@@ -4,15 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/services/firestore_services.dart';
+import 'package:task_master/others/constants.dart';
+import 'package:task_master/others/firestore_services.dart';
 import 'package:task_master/widgets/message.dart';
 
 class ReadTaskScreen extends StatefulWidget {
-  const ReadTaskScreen({Key? key, required this.color, required this.text})
-      : super(key: key);
-  final Color color;
+  const ReadTaskScreen({Key? key, required this.text}) : super(key: key);
   final String text;
-
   @override
   State<ReadTaskScreen> createState() => _ReadTaskScreenState();
 }
@@ -26,8 +24,8 @@ class _ReadTaskScreenState extends State<ReadTaskScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: widget.color,
-          title: Text(widget.text),
+          backgroundColor: giveCategoryGetColor(widget.text),
+          title: Text(widget.text.toUpperCase()),
           centerTitle: true,
           elevation: 0,
         ),
@@ -65,7 +63,7 @@ class _ReadTaskScreenState extends State<ReadTaskScreen> {
                             color: Colors.yellow, size: 35),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        tileColor: widget.color,
+                        tileColor: giveCategoryGetColor(widget.text),
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 8, horizontal: 15),
                         onTap: () {

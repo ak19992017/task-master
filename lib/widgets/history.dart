@@ -27,9 +27,10 @@ class _HistorySectionState extends State<HistorySection> {
           child: Text(
             "History",
             style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87),
+              fontSize: 28,
+              fontWeight: FontWeight.w500,
+              // color: Colors.black87,
+            ),
           ),
         ),
         const SizedBox(height: 15),
@@ -70,37 +71,32 @@ class _HistorySectionState extends State<HistorySection> {
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 15),
                       onTap: () {
-                        if (MediaQuery.of(context).size.width > 600) {
-                          print('Welcome to Web');
-                        } else {
-                          showModalBottomSheet(
-                            clipBehavior: Clip.hardEdge,
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (context) {
-                              return DraggableScrollableSheet(
-                                initialChildSize: 0.5,
-                                minChildSize: 0.2,
-                                maxChildSize: 1,
-                                expand: false,
-                                builder: (_, controller) =>
-                                    SingleChildScrollView(
-                                  controller: controller,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: Message(document: document),
-                                  ),
+                        showModalBottomSheet(
+                          clipBehavior: Clip.hardEdge,
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) {
+                            return DraggableScrollableSheet(
+                              initialChildSize: 0.5,
+                              minChildSize: 0.2,
+                              maxChildSize: 1,
+                              expand: false,
+                              builder: (_, controller) => SingleChildScrollView(
+                                controller: controller,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12),
+                                  child: Message(document: document),
                                 ),
-                              );
-                            },
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                topRight: Radius.circular(50),
                               ),
+                            );
+                          },
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50),
                             ),
-                          );
-                        }
+                          ),
+                        );
                       },
                       onLongPress: () {
                         firestoreServices.toggleCompleted(document);

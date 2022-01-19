@@ -6,16 +6,16 @@ import 'package:task_master/widgets/drawer.dart';
 import 'package:task_master/widgets/header.dart';
 import 'package:task_master/widgets/history.dart';
 
-class ToDoScreen extends StatefulWidget {
-  const ToDoScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<ToDoScreen> createState() => _ToDoScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _ToDoScreenState extends State<ToDoScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -26,9 +26,10 @@ class _ToDoScreenState extends State<ToDoScreen> {
             ),
           );
         },
-        label: const Text("Add task", style: TextStyle(fontSize: 20)),
-        icon: const Icon(EvaIcons.plus),
-        backgroundColor: Colors.black,
+        label: const Text("Add task",
+            style: TextStyle(fontSize: 20, color: Colors.white)),
+        icon: const Icon(EvaIcons.plus, color: Colors.white),
+        backgroundColor: Theme.of(context).primaryColor,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12.0))),
       ),

@@ -20,16 +20,14 @@ class _SuperButtonState extends State<SuperButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      label: Text(widget.label, style: const TextStyle(fontSize: 25)),
-      icon: Icon(widget.icon, size: 30),
+      label: Text(widget.label, style: const TextStyle(fontSize: 20)),
+      icon: Icon(widget.icon, size: 25),
       onPressed: widget.onPress,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(widget.color),
+        foregroundColor: MaterialStateProperty.all(Colors.white),
         padding: MaterialStateProperty.all(
-          const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 12,
-          ),
+          const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
         ),
       ),
     );

@@ -1,6 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:task_master/others/themes.dart';
+import 'package:task_master/screens/settings_screen.dart';
 
 class SuperDrawer extends StatefulWidget {
   const SuperDrawer({Key? key}) : super(key: key);
@@ -11,14 +14,13 @@ class SuperDrawer extends StatefulWidget {
 
 class _SuperDrawerState extends State<SuperDrawer> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  _signOut() async {
-    await _firebaseAuth.signOut();
-  }
-
-  bool _value = false;
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = context.watch<ThemeProvider>();
+    bool _value =
+        themeProvider.selectedThemeMode == ThemeMode.light ? false : true;
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -39,16 +41,19 @@ class _SuperDrawerState extends State<SuperDrawer> {
                 : const Icon(EvaIcons.sunOutline),
             title: _value ? const Text('Dark mode') : const Text('Light mode'),
             trailing: Switch(
-                value: _value,
-                onChanged: (value) {
-                  setState(() {
-                    _value = value;
-                  });
-                }),
+              value: _value,
+              onChanged: (value) {
+                setState(() => _value = value);
+                _value
+                    ? themeProvider.setSelectedThemeMode(ThemeMode.dark)
+                    : themeProvider.setSelectedThemeMode(ThemeMode.light);
+              },
+            ),
             onTap: () {
-              setState(() {
-                _value = !_value;
-              });
+              setState(() => _value = !_value);
+              _value
+                  ? themeProvider.setSelectedThemeMode(ThemeMode.dark)
+                  : themeProvider.setSelectedThemeMode(ThemeMode.light);
             },
           ),
           ListTile(
@@ -69,15 +74,13 @@ class _SuperDrawerState extends State<SuperDrawer> {
           ListTile(
             leading: const Icon(Icons.settings_outlined),
             title: const Text('Settings'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingsScreen()));
+            },
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-              onPressed: _signOut,
-              child: const Text('LogOut'),
-            ),
-          )
         ],
       ),
     );

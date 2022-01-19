@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:task_master/screens/add_screen.dart';
-import 'package:task_master/screens/todo_screen.dart';
+import 'package:task_master/screens/home_screen.dart';
 import 'package:task_master/widgets/button.dart';
 import 'package:task_master/widgets/history.dart';
 
@@ -39,7 +39,7 @@ class AuthenticationScreen extends StatelessWidget {
 
         return SafeArea(
           child: Scaffold(
-            body: ToDoScreen(),
+            body: HomeScreen(),
           ),
         );
       },

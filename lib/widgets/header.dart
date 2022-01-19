@@ -11,6 +11,7 @@ class HeaderSection extends StatefulWidget {
 class _HeaderSectionState extends State<HeaderSection> {
   String userName = "Aditya Kumar";
   bool isEditable = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +25,7 @@ class _HeaderSectionState extends State<HeaderSection> {
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w500,
-              color: Colors.black87,
+              // color: Colors.black87,
             ),
           ),
           Row(

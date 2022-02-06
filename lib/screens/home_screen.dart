@@ -1,10 +1,7 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/screens/add_screen.dart';
-import 'package:task_master/widgets/category.dart';
+import 'package:task_master/screens/chat/chats_page.dart';
+import 'package:task_master/screens/task/tasks_page.dart';
 import 'package:task_master/widgets/drawer.dart';
-import 'package:task_master/widgets/header.dart';
-import 'package:task_master/widgets/history.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,33 +13,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddTaskScreen(),
-            ),
-          );
-        },
-        label: const Text("Add task",
-            style: TextStyle(fontSize: 20, color: Colors.white)),
-        icon: const Icon(EvaIcons.plus, color: Colors.white),
-        backgroundColor: Theme.of(context).primaryColor,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12.0))),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      drawer: const SuperDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        drawer: const SuperDrawer(),
+        body: PageView(
           children: const [
-            SizedBox(height: 20, width: double.infinity),
-            HeaderSection(),
-            CategorySection(),
-            HistorySection(),
-            SizedBox(height: 60),
+            TasksPage(),
+            ChatsPage(),
           ],
         ),
       ),

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:task_master/screens/update_screen.dart';
+import 'package:task_master/screens/task/update_screen.dart';
 import 'package:task_master/others/firestore_services.dart';
 import 'package:task_master/widgets/button.dart';
 

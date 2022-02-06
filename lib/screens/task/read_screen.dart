@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/others/constants.dart';
 import 'package:task_master/others/firestore_services.dart';
-import 'package:task_master/widgets/message.dart';
+import 'package:task_master/screens/task/widgets/message.dart';
 
 class ReadTaskScreen extends StatefulWidget {
   const ReadTaskScreen({Key? key, required this.text}) : super(key: key);
@@ -103,7 +103,8 @@ class _ReadTaskScreenState extends State<ReadTaskScreen> {
                   }).toList(),
                 );
               } else {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                    child: CircularProgressIndicator.adaptive());
               }
             },
           ),

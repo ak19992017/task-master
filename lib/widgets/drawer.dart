@@ -40,7 +40,7 @@ class _SuperDrawerState extends State<SuperDrawer> {
                 ? const Icon(EvaIcons.moonOutline)
                 : const Icon(EvaIcons.sunOutline),
             title: _value ? const Text('Dark mode') : const Text('Light mode'),
-            trailing: Switch(
+            trailing: Switch.adaptive(
               value: _value,
               onChanged: (value) {
                 setState(() => _value = value);

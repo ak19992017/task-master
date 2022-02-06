@@ -12,7 +12,6 @@ class ThemeProvider extends ChangeNotifier {
 
   setSelectedPrimaryColor(Color _color) {
     selectedPrimaryColor = _color;
-
     notifyListeners();
   }
 }

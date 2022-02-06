@@ -9,7 +9,7 @@ class HeaderSection extends StatefulWidget {
 }
 
 class _HeaderSectionState extends State<HeaderSection> {
-  String userName = "Aditya Kumar";
+  String userName = "Jack";
   bool isEditable = false;
 
   @override
@@ -35,10 +35,10 @@ class _HeaderSectionState extends State<HeaderSection> {
                 child: !isEditable
                     ? Text(userName,
                         style: const TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold))
+                            fontSize: 52, fontWeight: FontWeight.bold))
                     : TextFormField(
                         style: const TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
+                            fontSize: 52, fontWeight: FontWeight.bold),
                         decoration: const InputDecoration(
                           border: UnderlineInputBorder(),
                         ),

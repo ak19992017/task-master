@@ -80,7 +80,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   ),
                   DropdownButton<String>(
                     value: _dropdownValue,
-                    items: categoryList
+                    items: folderList
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                           child: Text(value), value: value);

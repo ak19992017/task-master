@@ -1,13 +1,13 @@
-import 'dart:math';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/others/chat_message_model.dart';
+import 'package:task_master/others/chat_users_model.dart';
+import 'package:task_master/screens/profile_screen.dart';
 
 class ChatDetails extends StatefulWidget {
-  final String name;
-  final String imageUrl;
-  const ChatDetails({Key? key, required this.name, required this.imageUrl})
-      : super(key: key);
+  final ChatUsers user;
+
+  const ChatDetails({Key? key, required this.user}) : super(key: key);
 
   @override
   _ChatDetailsState createState() => _ChatDetailsState();
@@ -18,17 +18,33 @@ class _ChatDetailsState extends State<ChatDetails> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.grey.shade300,
         appBar: AppBar(
           elevation: 0,
           // automaticallyImplyLeading: false,
-          // backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(
+              EvaIcons.arrowBack,
+              color: Colors.white,
+            ),
+            tooltip: 'Back',
+          ),
           flexibleSpace: Row(
             children: <Widget>[
               const SizedBox(width: 50),
-              CircleAvatar(
-                backgroundImage: AssetImage(widget.imageUrl),
-                maxRadius: 25,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(user: widget.user),
+                    ),
+                  );
+                },
+                child: CircleAvatar(
+                  backgroundImage: AssetImage(widget.user.imageURL),
+                  maxRadius: 25,
+                ),
               ),
               const SizedBox(width: 15),
               Expanded(
@@ -37,12 +53,16 @@ class _ChatDetailsState extends State<ChatDetails> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      widget.name,
-                      style: const TextStyle(fontSize: 18),
+                      widget.user.name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     const Text(
                       "Online",
-                      style: TextStyle(fontSize: 13),
+                      style: TextStyle(fontSize: 13, color: Colors.white),
                     ),
                   ],
                 ),
@@ -52,18 +72,47 @@ class _ChatDetailsState extends State<ChatDetails> {
           actions: [
             IconButton(
               onPressed: () {},
-              icon: const Icon(EvaIcons.video),
+              icon: const Icon(
+                EvaIcons.video,
+                color: Colors.white,
+              ),
               tooltip: 'Video call',
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(EvaIcons.phone),
+              icon: const Icon(
+                EvaIcons.phone,
+                color: Colors.white,
+              ),
               tooltip: 'Voice call',
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(EvaIcons.moreVertical),
+            PopupMenuButton<String>(
+              // offset: const Offset(-40, 0),
               tooltip: 'More options',
+              enableFeedback: true,
+              icon: const Icon(
+                EvaIcons.moreVertical,
+                color: Colors.white,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              onSelected: handleClick,
+              itemBuilder: (BuildContext context) {
+                return {
+                  'Block',
+                  'View profile',
+                  'Media, links and docs',
+                  'Search',
+                  'Mute notifications',
+                  'Wallpaper'
+                }.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
             ),
           ],
         ),
@@ -97,14 +146,19 @@ class _ChatDetailsState extends State<ChatDetails> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: (messages[index].messageType == "receiver"
-                                  ? Colors.blueAccent
-                                  : Colors.redAccent),
+                                  ? Colors.grey.shade300
+                                  : Theme.of(context).primaryColor),
                             ),
                             padding: const EdgeInsets.all(16),
                             child: Text(
                               messages[index].messageContent,
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.white),
+                              style: TextStyle(
+                                fontSize: 20,
+                                color:
+                                    (messages[index].messageType == "receiver"
+                                        ? Colors.black
+                                        : Colors.white),
+                              ),
                             ),
                           ),
                           Text(
@@ -114,7 +168,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                                     .minute
                                     .toString()
                                     .padLeft(2, "0"),
-                            style: const TextStyle(color: Colors.black45),
+                            // style: const TextStyle(color: Colors.black45),
                           )
                         ],
                       ),
@@ -130,46 +184,56 @@ class _ChatDetailsState extends State<ChatDetails> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,
+                  boxShadow: kElevationToShadow[3],
                 ),
                 margin: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
                 height: 60,
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width - 90,
                 child: Row(
-                  children: <Widget>[
-                    const SizedBox(width: 15),
-                    const Expanded(
+                  children: const [
+                    SizedBox(width: 15),
+                    Expanded(
                       child: TextField(
                         decoration: InputDecoration(
-                          hintText: "Write message...",
+                          hintText: "Write a message...",
                           hintStyle: TextStyle(color: Colors.black54),
                           border: InputBorder.none,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 15),
-                    const Icon(
+                    SizedBox(width: 15),
+                    Icon(
                       EvaIcons.attach,
                       color: Colors.black,
                     ),
-                    const SizedBox(width: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 6, bottom: 6),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Transform.rotate(
-                          angle: -pi / 4,
-                          child: const Icon(Icons.send, color: Colors.black),
-                        ),
-                      ),
+                    SizedBox(width: 10),
+                    Icon(
+                      Icons.photo_camera,
+                      color: Colors.black,
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
                   ],
                 ),
               ),
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(
+            Icons.send,
+            color: Colors.white,
+          ),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
       ),
     );
+  }
+
+  void handleClick(String value) {
+    switch (value) {
+      default:
+        break;
+    }
   }
 }

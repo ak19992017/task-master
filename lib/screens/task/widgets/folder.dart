@@ -19,7 +19,7 @@ class _FoldersSectionState extends State<FoldersSection> {
           height: MediaQuery.of(context).size.width + 30,
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: categoryList.length,
+            itemCount: folderList.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2),
             itemBuilder: (context, index) {
@@ -28,14 +28,14 @@ class _FoldersSectionState extends State<FoldersSection> {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        ReadTaskScreen(text: categoryList[index]),
+                        ReadTaskScreen(text: folderList[index]),
                   ),
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   margin: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    color: giveCategoryGetColor(categoryList[index]),
+                    color: giveCategoryGetColor(folderList[index]),
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                     // boxShadow: [
                     //   BoxShadow(
@@ -51,7 +51,7 @@ class _FoldersSectionState extends State<FoldersSection> {
                     children: [
                       Image.asset('assets/' + imageList[index]),
                       Text(
-                        categoryList[index].toUpperCase(),
+                        folderList[index].toUpperCase(),
                         style: const TextStyle(
                           fontSize: 35,
                           color: Colors.white,

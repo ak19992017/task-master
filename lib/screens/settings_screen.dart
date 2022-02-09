@@ -39,6 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 icon: const Icon(Icons.logout_rounded, size: 25),
                 onPressed: _signOut,
                 style: ButtonStyle(
+                  shape: MaterialStateProperty.all(const StadiumBorder()),
                   backgroundColor:
                       MaterialStateProperty.all(Theme.of(context).primaryColor),
                   foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -48,7 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

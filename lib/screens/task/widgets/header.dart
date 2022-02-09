@@ -9,7 +9,7 @@ class HeaderSection extends StatefulWidget {
 }
 
 class _HeaderSectionState extends State<HeaderSection> {
-  String userName = "Jack";
+  String userName = "Aditya";
   bool isEditable = false;
 
   @override

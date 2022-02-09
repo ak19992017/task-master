@@ -36,7 +36,7 @@ class _ThemePickerState extends State<ThemePicker> {
                     },
               child: Container(
                 margin: const EdgeInsets.all(10),
-                width: 100,
+                width: 150,
                 decoration: BoxDecoration(
                   color: AppColors.primaryColors[index],
                   borderRadius: BorderRadius.circular(10),

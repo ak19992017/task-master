@@ -13,7 +13,7 @@ Color giveCategoryGetColor(String e) {
   return Colors.black;
 }
 
-List<String> categoryList = ["home", "work", "code", "play"];
+List<String> folderList = ["home", "work", "code", "play"];
 
 List<String> imageList = [
   'pencil.png',

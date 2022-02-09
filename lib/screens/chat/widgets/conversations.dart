@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_master/others/chat_users_model.dart';
 import 'package:task_master/screens/chat/widgets/chat_details.dart';
+import 'package:task_master/screens/profile_screen.dart';
 
 class Conversations extends StatefulWidget {
   const Conversations({Key? key}) : super(key: key);
@@ -56,10 +57,7 @@ class _ConversationsState extends State<Conversations> {
               padding: const EdgeInsets.only(top: 20, bottom: 80),
               itemBuilder: (context, index) {
                 return ConversationList(
-                  name: chatUsers[index].name,
-                  messageText: chatUsers[index].messageText,
-                  imageUrl: chatUsers[index].imageURL,
-                  time: chatUsers[index].time,
+                  user: chatUsers[index],
                   isMessageRead: (index % 3 == 0) ? true : false,
                 );
               },
@@ -72,19 +70,13 @@ class _ConversationsState extends State<Conversations> {
 }
 
 class ConversationList extends StatefulWidget {
-  final String name;
-  final String messageText;
-  final String imageUrl;
-  final String time;
+  final ChatUsers user;
   final bool isMessageRead;
-  const ConversationList(
-      {Key? key,
-      required this.name,
-      required this.messageText,
-      required this.imageUrl,
-      required this.time,
-      required this.isMessageRead})
-      : super(key: key);
+  const ConversationList({
+    Key? key,
+    required this.isMessageRead,
+    required this.user,
+  }) : super(key: key);
   @override
   _ConversationListState createState() => _ConversationListState();
 }
@@ -96,33 +88,46 @@ class _ConversationListState extends State<ConversationList> {
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  ChatDetails(name: widget.name, imageUrl: widget.imageUrl))),
-      leading: Stack(
-        children: [
-          CircleAvatar(
-              backgroundImage: AssetImage(widget.imageUrl), maxRadius: 35),
-          if (widget.isMessageRead == false)
-            Positioned(
-              bottom: 2,
-              right: 2,
-              child: Container(
-                height: 15,
-                width: 15,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.green,
+              builder: (context) => ChatDetails(user: widget.user))),
+      leading: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileScreen(user: widget.user),
+            ),
+          );
+        },
+        child: Stack(
+          children: [
+            CircleAvatar(
+                backgroundImage: AssetImage(widget.user.imageURL),
+                maxRadius: 35),
+            if (widget.isMessageRead == false)
+              Positioned(
+                bottom: 2,
+                right: 2,
+                child: Container(
+                  height: 15,
+                  width: 15,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.green,
+                  ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
       title: Text(
-        widget.name,
-        style: const TextStyle(fontSize: 18),
+        widget.user.name,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       subtitle: Text(
-        widget.messageText,
+        widget.user.messageText,
         style: TextStyle(
             fontSize: 13,
             color: Colors.grey.shade600,
@@ -130,7 +135,7 @@ class _ConversationListState extends State<ConversationList> {
                 widget.isMessageRead ? FontWeight.bold : FontWeight.normal),
       ),
       trailing: Text(
-        widget.time,
+        widget.user.time,
         style: TextStyle(
             fontSize: 12,
             fontWeight:

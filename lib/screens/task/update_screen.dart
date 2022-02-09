@@ -102,7 +102,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                   ),
                   DropdownButton<String>(
                     value: _dropdownValue,
-                    items: categoryList
+                    items: folderList
                         .map<DropdownMenuItem<String>>((String value) =>
                             DropdownMenuItem<String>(
                                 child: Text(value), value: value))

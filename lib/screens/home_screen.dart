@@ -22,17 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
           timeBackPressed = DateTime.now();
 
           if (isExitWarning) {
-            final snackBar = SnackBar(
+            const snackBar = SnackBar(
               elevation: 10,
-              content: const Text(
+              content: Text(
                 'Press back again to exit',
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(fontSize: 15),
                 textAlign: TextAlign.center,
               ),
-              shape: const StadiumBorder(),
+
               behavior: SnackBarBehavior.floating,
-              margin: const EdgeInsets.all(25),
-              backgroundColor: Theme.of(context).primaryColor,
+              margin: EdgeInsets.all(25),
+              // backgroundColor: Theme.of(context).primaryColor,
             );
 
             ScaffoldMessenger.of(context).showSnackBar(snackBar);

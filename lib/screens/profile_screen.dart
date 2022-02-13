@@ -83,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           Text(
                             widget.user.name,
                             style: const TextStyle(
@@ -91,13 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          Text(
-                            widget.user.bio,
-                            style: const TextStyle(fontSize: 25),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           Text(
                             widget.user.location,
                             style: const TextStyle(fontSize: 20),

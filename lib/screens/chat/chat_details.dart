@@ -4,6 +4,8 @@ import 'package:task_master/others/chat_message_model.dart';
 import 'package:task_master/others/chat_users_model.dart';
 import 'package:task_master/screens/profile_screen.dart';
 
+import 'widgets/circular_icon_button.dart';
+
 class ChatDetails extends StatefulWidget {
   final ChatUsers user;
 
@@ -90,22 +92,18 @@ class _ChatDetailsState extends State<ChatDetails> {
               // offset: const Offset(-40, 0),
               tooltip: 'More options',
               enableFeedback: true,
-              icon: const Icon(
-                EvaIcons.moreVertical,
-                color: Colors.white,
-              ),
+              icon: const Icon(EvaIcons.moreVertical, color: Colors.white),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
               onSelected: handleClick,
-              itemBuilder: (BuildContext context) {
+              itemBuilder: (context) {
                 return {
                   'Block',
                   'View profile',
                   'Media, links and docs',
                   'Search',
                   'Mute notifications',
-                  'Wallpaper'
                 }.map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
@@ -186,14 +184,18 @@ class _ChatDetailsState extends State<ChatDetails> {
                   color: Colors.white,
                   boxShadow: kElevationToShadow[3],
                 ),
-                margin: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                height: 60,
-                width: MediaQuery.of(context).size.width - 90,
+                margin: const EdgeInsets.only(left: 5, bottom: 10),
+                // height: 60,
+                constraints: const BoxConstraints(minHeight: 60),
+                width: MediaQuery.of(context).size.width - 65,
                 child: Row(
-                  children: const [
-                    SizedBox(width: 15),
-                    Expanded(
+                  children: [
+                    const SizedBox(width: 15),
+                    const Expanded(
                       child: TextField(
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 5,
+                        minLines: 1,
                         decoration: InputDecoration(
                           hintText: "Write a message...",
                           hintStyle: TextStyle(color: Colors.black54),
@@ -201,30 +203,92 @@ class _ChatDetailsState extends State<ChatDetails> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 15),
-                    Icon(
-                      EvaIcons.attach,
-                      color: Colors.black,
+                    // const SizedBox(width: 15),
+                    IconButton(
+                      icon: const Icon(
+                        EvaIcons.attach,
+                        color: Colors.black,
+                      ),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          context: context,
+                          builder: (context) {
+                            return Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    CircularIconButton(
+                                      label: 'Document',
+                                      icon: EvaIcons.file,
+                                      color: Colors.purple,
+                                      onPress: () {},
+                                    ),
+                                    CircularIconButton(
+                                      label: 'Camera',
+                                      icon: Icons.photo_camera,
+                                      color: Colors.red,
+                                      onPress: () {},
+                                    ),
+                                    CircularIconButton(
+                                      label: 'Gallery',
+                                      icon: EvaIcons.image,
+                                      color: Colors.pink,
+                                      onPress: () {},
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 30),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    CircularIconButton(
+                                      label: 'Audio',
+                                      icon: EvaIcons.headphones,
+                                      color: Colors.orange,
+                                      onPress: () {},
+                                    ),
+                                    CircularIconButton(
+                                      label: 'Location',
+                                      icon: EvaIcons.pinOutline,
+                                      color: Colors.green,
+                                      onPress: () {},
+                                    ),
+                                    CircularIconButton(
+                                      label: 'Contact',
+                                      icon: EvaIcons.person,
+                                      color: Colors.blue,
+                                      onPress: () {},
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                     ),
-                    SizedBox(width: 10),
-                    Icon(
-                      Icons.photo_camera,
-                      color: Colors.black,
-                    ),
-                    SizedBox(width: 10),
                   ],
                 ),
               ),
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(
-            Icons.send,
-            color: Colors.white,
+        floatingActionButton: Align(
+          alignment: const Alignment(1.08, 1.005),
+          child: FloatingActionButton(
+            onPressed: () {},
+            child: const Icon(
+              Icons.send,
+              color: Colors.white,
+            ),
+            backgroundColor: Theme.of(context).primaryColor,
           ),
-          backgroundColor: Theme.of(context).primaryColor,
         ),
       ),
     );

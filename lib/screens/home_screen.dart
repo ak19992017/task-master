@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_master/screens/chat/chats_page.dart';
-import 'package:task_master/screens/task/tasks_page.dart';
+import 'package:task_master/screens/tasks_page.dart';
 import 'package:task_master/widgets/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,14 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
             return true;
           }
         },
-        child: Scaffold(
-          drawer: const SuperDrawer(),
-          body: PageView(
-            children: const [
-              TasksPage(),
-              ChatsPage(),
-            ],
-          ),
+        child: const Scaffold(
+          drawer: SuperDrawer(),
+          body: TasksPage(),
         ),
       ),
     );

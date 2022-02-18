@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 import 'package:task_master/others/constants.dart';
-import 'package:task_master/screens/task/read_screen.dart';
+import 'package:task_master/screens/read_screen.dart';
 
 class FoldersSection extends StatefulWidget {
   const FoldersSection({Key? key}) : super(key: key);

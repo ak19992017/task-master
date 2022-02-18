@@ -4,7 +4,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/others/firestore_services.dart';
-import 'package:task_master/screens/task/widgets/message.dart';
+import 'package:task_master/widgets/message.dart';
 
 class HistorySection extends StatefulWidget {
   const HistorySection({Key? key}) : super(key: key);

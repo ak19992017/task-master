@@ -2,9 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:task_master/others/chat_users_model.dart';
 import 'package:task_master/others/themes.dart';
-import 'package:task_master/screens/profile_screen.dart';
 import 'package:task_master/screens/settings_screen.dart';
 
 class SuperDrawer extends StatefulWidget {
@@ -15,8 +13,6 @@ class SuperDrawer extends StatefulWidget {
 }
 
 class _SuperDrawerState extends State<SuperDrawer> {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     var themeProvider = context.watch<ThemeProvider>();
@@ -28,14 +24,7 @@ class _SuperDrawerState extends State<SuperDrawer> {
         padding: EdgeInsets.zero,
         children: [
           const SizedBox(height: 20),
-          _firebaseAuth.currentUser!.photoURL == null
-              ? const Text("image not found")
-              : CircleAvatar(
-                  radius: 100,
-                  backgroundImage: Image.network(
-                    _firebaseAuth.currentUser!.photoURL.toString(),
-                    fit: BoxFit.fill,
-                  ).image),
+          Image.asset('assets/rocket.png'),
           const SizedBox(height: 30),
           ListTile(
             leading: _value
@@ -72,19 +61,6 @@ class _SuperDrawerState extends State<SuperDrawer> {
             leading: const Icon(EvaIcons.trash2Outline),
             title: const Text('Trash'),
             onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(EvaIcons.person),
-            title: const Text('Profile'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreen(user: chatUsers[4]),
-                ),
-              );
-            },
           ),
           ListTile(
             leading: const Icon(Icons.settings_outlined),

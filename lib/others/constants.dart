@@ -10,7 +10,7 @@ Color giveCategoryGetColor(String e) {
   } else if (e == 'play') {
     return Colors.amberAccent.shade700;
   }
-  return Colors.black;
+  return Colors.grey;
 }
 
 List<String> folderList = ["home", "work", "code", "play"];

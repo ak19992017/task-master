@@ -38,7 +38,7 @@ class _MessageState extends State<Message> {
               ),
         ),
         const SizedBox(height: 15),
-        Text(
+        SelectableText(
           widget.document['description'],
           style: const TextStyle(fontSize: 25),
         ),

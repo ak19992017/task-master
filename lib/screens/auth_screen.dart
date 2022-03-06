@@ -1,12 +1,7 @@
-// ignore_for_file: prefer_const_constructors, unused_import
-
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
-import 'package:task_master/screens/add_screen.dart';
 import 'package:task_master/screens/home_screen.dart';
-import 'package:task_master/widgets/button.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
@@ -36,7 +31,7 @@ class AuthenticationScreen extends StatelessWidget {
           );
         }
 
-        return SafeArea(
+        return const SafeArea(
           child: Scaffold(
             body: HomeScreen(),
           ),

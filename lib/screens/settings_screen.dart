@@ -1,5 +1,8 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:task_master/others/themes.dart';
 import 'package:task_master/screens/auth_screen.dart';
 import 'package:task_master/widgets/theme_pick.dart';
 
@@ -22,24 +25,72 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = context.watch<ThemeProvider>();
+    bool _value =
+        themeProvider.selectedThemeMode == ThemeMode.light ? false : true;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
       body: Column(
         children: [
-          const ListTile(title: Text('Themes')),
-          const ThemePicker(),
+          const SizedBox(height: 20),
+          const SizedBox(
+            height: 100,
+            child: Text(
+              'Settings',
+              style: TextStyle(fontSize: 50),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Card(
+            child: SwitchListTile(
+              secondary: _value
+                  ? const Icon(EvaIcons.moonOutline)
+                  : const Icon(EvaIcons.sunOutline),
+              title:
+                  _value ? const Text('Dark mode') : const Text('Light mode'),
+              value: _value,
+              onChanged: (value) {
+                setState(() => _value = value);
+                _value
+                    ? themeProvider.setSelectedThemeMode(ThemeMode.dark)
+                    : themeProvider.setSelectedThemeMode(ThemeMode.light);
+              },
+            ),
+          ),
+          const Card(
+            child: ExpansionTile(
+              leading: Icon(EvaIcons.colorPalette),
+              title: Text('Themes'),
+              children: [ThemePicker()],
+            ),
+          ),
+          const Card(
+            child: ListTile(
+              leading: Icon(EvaIcons.starOutline),
+              title: Text('Bookmarks'),
+            ),
+          ),
+          const Card(
+            child: ListTile(
+              leading: Icon(EvaIcons.eyeOff2Outline),
+              title: Text('Private'),
+            ),
+          ),
+          const Card(
+            child: ListTile(
+              leading: Icon(EvaIcons.trash2Outline),
+              title: Text('Trash'),
+            ),
+          ),
           SizedBox(
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: ElevatedButton.icon(
-                label: const Text('Log Out', style: TextStyle(fontSize: 20)),
-                icon: const Icon(Icons.logout_rounded, size: 25),
+                label: const Text('Log Out', style: TextStyle(fontSize: 18)),
+                icon: const Icon(Icons.logout_rounded, size: 22),
                 onPressed: _signOut,
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all(const StadiumBorder()),
                   backgroundColor:
                       MaterialStateProperty.all(Theme.of(context).primaryColor),
                   foregroundColor: MaterialStateProperty.all(Colors.white),

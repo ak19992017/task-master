@@ -1,6 +1,4 @@
-// ignore_for_file: avoid_print, unused_import
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 import 'package:task_master/others/constants.dart';
 import 'package:task_master/others/firestore_services.dart';
@@ -44,6 +42,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 8.0),
                       TextFormField(
+                        autofocus: true,
                         decoration: const InputDecoration(
                           hintText: 'Enter task here',
                           border: OutlineInputBorder(

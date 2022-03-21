@@ -71,13 +71,7 @@ class MyApp extends StatelessWidget {
           textStyle: const TextStyle(fontSize: 15, color: Colors.black),
         ),
         inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          unselectedIconTheme: IconThemeData(color: Colors.white),
-        ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8))),
       ),
       home: const AuthenticationScreen(),
     );

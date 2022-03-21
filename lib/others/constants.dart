@@ -34,8 +34,8 @@ List<String> imageList = [
 class AppColors {
   static List<Color> primaryColors = const [
     Color(0xffff5252),
-    Color(0xff448aff),
     Color(0xff00c853),
+    Color(0xff448aff),
     Color(0xffffab00),
   ];
 

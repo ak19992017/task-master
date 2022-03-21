@@ -1,3 +1,7 @@
+// ignore_for_file: avoid_print, unused_import
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/others/constants.dart';
 import 'package:task_master/others/firestore_services.dart';

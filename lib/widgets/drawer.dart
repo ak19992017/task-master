@@ -20,56 +20,44 @@ class _SuperDrawerState extends State<SuperDrawer> {
 
     return Drawer(
       child: ListView(
+        reverse: true,
         padding: EdgeInsets.zero,
         children: [
-          const SizedBox(height: 20),
-          Image.asset('assets/rocket.png'),
-          const SizedBox(height: 30),
-          ListTile(
-            leading: _value
-                ? const Icon(EvaIcons.moonOutline)
-                : const Icon(EvaIcons.sunOutline),
-            title: _value ? const Text('Dark mode') : const Text('Light mode'),
-            trailing: Switch.adaptive(
-              value: _value,
-              onChanged: (value) {
-                setState(() => _value = value);
+          Card(
+            child: ListTile(
+              leading: _value
+                  ? const Icon(EvaIcons.moonOutline)
+                  : const Icon(EvaIcons.sunOutline),
+              title:
+                  _value ? const Text('Dark mode') : const Text('Light mode'),
+              trailing: Switch.adaptive(
+                value: _value,
+                onChanged: (value) {
+                  setState(() => _value = value);
+                  _value
+                      ? themeProvider.setSelectedThemeMode(ThemeMode.dark)
+                      : themeProvider.setSelectedThemeMode(ThemeMode.light);
+                },
+              ),
+              onTap: () {
+                setState(() => _value = !_value);
                 _value
                     ? themeProvider.setSelectedThemeMode(ThemeMode.dark)
                     : themeProvider.setSelectedThemeMode(ThemeMode.light);
               },
             ),
-            onTap: () {
-              setState(() => _value = !_value);
-              _value
-                  ? themeProvider.setSelectedThemeMode(ThemeMode.dark)
-                  : themeProvider.setSelectedThemeMode(ThemeMode.light);
-            },
           ),
-          ListTile(
-            leading: const Icon(EvaIcons.starOutline),
-            title: const Text('Bookmarks'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(EvaIcons.eyeOff2Outline),
-            title: const Text('Private'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(EvaIcons.trash2Outline),
-            title: const Text('Trash'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings_outlined),
-            title: const Text('Settings'),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SettingsScreen()));
-            },
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.settings_outlined),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingsScreen()));
+              },
+            ),
           ),
         ],
       ),

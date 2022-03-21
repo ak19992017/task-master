@@ -2,7 +2,6 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/screens/add_screen.dart';
 import 'package:task_master/widgets/folder.dart';
-import 'package:task_master/widgets/header.dart';
 import 'package:task_master/widgets/history.dart';
 
 class TasksPage extends StatelessWidget {
@@ -32,7 +31,7 @@ class TasksPage extends StatelessWidget {
         child: Column(
           children: const [
             SizedBox(height: 20, width: double.infinity),
-            HeaderSection(),
+            // HeaderSection(),
             FoldersSection(),
             HistorySection(),
             SizedBox(height: 60),

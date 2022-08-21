@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 Color giveCategoryGetColor(String e) {
-  if (e == 'home') {
+  if (e == 'Home') {
     return Colors.redAccent;
-  } else if (e == 'work') {
+  } else if (e == 'Work') {
     return Colors.greenAccent.shade700;
-  } else if (e == 'code') {
+  } else if (e == 'Code') {
     return Colors.blueAccent;
-  } else if (e == 'play') {
+  } else if (e == 'Play') {
     return Colors.amberAccent.shade700;
   }
   return Colors.grey;
 }
 
-List<String> folderList = ["home", "work", "code", "play"];
+List<String> folderList = ["Home", "Work", "Code", "Play"];
 
 List<String> imageList = [
   'pencil.png',

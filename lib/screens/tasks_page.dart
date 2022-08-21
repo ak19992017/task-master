@@ -1,8 +1,7 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/screens/add_screen.dart';
+import 'package:task_master/widgets/ffab.dart';
 import 'package:task_master/widgets/folder.dart';
-import 'package:task_master/widgets/history.dart';
+import 'package:task_master/widgets/task_list_by_date.dart';
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
@@ -10,31 +9,31 @@ class TasksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddTaskScreen(),
-            ),
-          );
-        },
-        label: const Text("Add task",
-            style: TextStyle(fontSize: 20, color: Colors.white)),
-        icon: const Icon(EvaIcons.plus, color: Colors.white),
-        backgroundColor: Theme.of(context).primaryColor,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12.0))),
-      ),
+      floatingActionButton: const SuperFAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(
         child: Column(
-          children: const [
-            SizedBox(height: 20, width: double.infinity),
+          children: [
+            const SizedBox(height: 20, width: double.infinity),
             // HeaderSection(),
-            FoldersSection(),
-            HistorySection(),
-            SizedBox(height: 60),
+            const FoldersSection(),
+            Column(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Text(
+                    "History",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w500,
+                      // color: Colors.black87,
+                    ),
+                  ),
+                ),
+                TaskListByDate(),
+              ],
+            ),
+            const SizedBox(height: 60),
           ],
         ),
       ),

@@ -25,7 +25,7 @@ class _ReadTaskScreenState extends State<ReadTaskScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: giveCategoryGetColor(widget.text),
-          title: Text(widget.text.toUpperCase()),
+          title: Text(widget.text),
           centerTitle: true,
           elevation: 0,
         ),
@@ -34,7 +34,8 @@ class _ReadTaskScreenState extends State<ReadTaskScreen> {
             stream: users
                 .doc(uniqueId)
                 .collection('tasks')
-                .where('category', isEqualTo: widget.text)
+                .where('category',
+                    whereIn: [widget.text, widget.text.toLowerCase()])
                 .orderBy('createdOn', descending: true)
                 .snapshots(),
             builder:

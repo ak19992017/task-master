@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:task_master/others/firestore_services.dart';
 import 'package:task_master/widgets/message.dart';
 
-class HistorySection extends StatefulWidget {
-  const HistorySection({Key? key}) : super(key: key);
+class TaskListByDate extends StatefulWidget {
+  const TaskListByDate({Key? key}) : super(key: key);
 
   @override
-  _HistorySectionState createState() => _HistorySectionState();
+  _TaskListByDateState createState() => _TaskListByDateState();
 }
 
-class _HistorySectionState extends State<HistorySection> {
+class _TaskListByDateState extends State<TaskListByDate> {
   @override
   Widget build(BuildContext context) {
     String uniqueId = FirebaseAuth.instance.currentUser!.uid;
@@ -22,17 +22,6 @@ class _HistorySectionState extends State<HistorySection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 15),
-          child: Text(
-            "History",
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w500,
-              // color: Colors.black87,
-            ),
-          ),
-        ),
         const SizedBox(height: 15),
         StreamBuilder<QuerySnapshot>(
           stream: users

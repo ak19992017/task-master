@@ -1,6 +1,7 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:task_master/others/constants.dart';
 import 'package:task_master/widgets/draawer.dart';
-import 'package:task_master/widgets/ffab.dart';
 
 class DesktopHomeScreen extends StatelessWidget {
   const DesktopHomeScreen({Key? key}) : super(key: key);
@@ -8,7 +9,13 @@ class DesktopHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: const SuperFAB(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => addTaskPopup(context),
+        child: const Icon(EvaIcons.plus, color: Colors.white),
+        backgroundColor: Theme.of(context).primaryColor,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12.0))),
+      ),
       body: Row(
         children: [
           const SuperDrawer(),

@@ -29,6 +29,7 @@ class _SuperDrawerState extends State<SuperDrawer> {
     var themeProvider = context.watch<ThemeProvider>();
     bool _value =
         themeProvider.selectedThemeMode == ThemeMode.light ? false : true;
+
     String uniqueId = FirebaseAuth.instance.currentUser!.uid;
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     FirestoreServices firestoreServices = FirestoreServices();
@@ -85,18 +86,20 @@ class _SuperDrawerState extends State<SuperDrawer> {
                   // backgroundColor: giveCategoryGetColor(folderList[index]),
                   // collapsedBackgroundColor:
                   // giveCategoryGetColor(folderList[index]),
-                  iconColor: Colors.white,
-                  collapsedIconColor: Colors.white,
-                  textColor: Colors.white,
-                  collapsedTextColor: Colors.white,
+                  // iconColor: Colors.white,
+                  // collapsedIconColor: Colors.white,
+                  // textColor: Colors.white,
+                  // collapsedTextColor: Colors.white,
                   children: [
                     SingleChildScrollView(
                       child: StreamBuilder<QuerySnapshot>(
                         stream: users
                             .doc(uniqueId)
                             .collection('tasks')
-                            .where('category',
-                                isEqualTo: folderList[index].toLowerCase())
+                            .where('category', whereIn: [
+                              folderList[index],
+                              folderList[index].toLowerCase()
+                            ])
                             .orderBy('createdOn', descending: true)
                             .snapshots(),
                         builder: (BuildContext context,
@@ -107,7 +110,8 @@ class _SuperDrawerState extends State<SuperDrawer> {
                               physics: const NeverScrollableScrollPhysics(),
                               children: snapshot.data!.docs.map((document) {
                                 return Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 4, horizontal: 5),
                                   child: ListTile(
                                     title: Text(
                                       document['task'],

@@ -26,9 +26,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Task master',
       debugShowCheckedModeBanner: false,
+      
       themeMode: themeProvider.selectedThemeMode,
       theme: ThemeData(
-        // useMaterial3: true,
+        useMaterial3: true,
         brightness: Brightness.light,
         primarySwatch: AppColors.getMaterialColorFromColor(
             themeProvider.selectedPrimaryColor),

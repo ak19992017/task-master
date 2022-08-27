@@ -1,6 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/others/constants.dart';
+import 'package:task_master/screens/add_screen.dart';
 
 class SuperFAB extends StatelessWidget {
   const SuperFAB({
@@ -10,7 +10,14 @@ class SuperFAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-      onPressed: () => addTaskPopup(context),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AddTaskScreen(),
+          ),
+        );
+      },
       label: const Text("Add task",
           style: TextStyle(fontSize: 20, color: Colors.white)),
       icon: const Icon(EvaIcons.plus, color: Colors.white),

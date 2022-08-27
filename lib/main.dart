@@ -26,10 +26,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Task master',
       debugShowCheckedModeBanner: false,
-      
+      //bouncy effect throughout app
+      scrollBehavior: const ScrollBehavior(
+          androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
       themeMode: themeProvider.selectedThemeMode,
       theme: ThemeData(
-        useMaterial3: true,
         brightness: Brightness.light,
         primarySwatch: AppColors.getMaterialColorFromColor(
             themeProvider.selectedPrimaryColor),

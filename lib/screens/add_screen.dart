@@ -16,7 +16,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   final TextEditingController _task = TextEditingController();
   final TextEditingController _description = TextEditingController();
 
-  String _dropdownValue = 'Home';
+  String _dropdownValue = 'home';
   bool _completed = false;
   @override
   Widget build(BuildContext context) {
